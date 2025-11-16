@@ -24,6 +24,13 @@ const Hero = () => {
 
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         <div className="animate-fade-in">
+          <div className="flex justify-center mb-8">
+            <img 
+              src="/assets/images/humo-logo.jpg" 
+              alt="Humo Corporation" 
+              className="h-32 w-32 rounded-3xl object-cover shadow-2xl animate-pulse"
+            />
+          </div>
           <h1 className={`text-6xl md:text-8xl font-bold mb-6 ${theme === 'dark' ? 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400' : 'text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-600 to-purple-600'} animate-gradient`}>
             {t('heroTitle')}
           </h1>
