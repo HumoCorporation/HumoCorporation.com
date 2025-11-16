@@ -84,3 +84,5 @@ frontend/node_modules/.cache/default-development/3.pack
 frontend/node_modules/.cache/default-development/0.pack
 frontend/public/assets/models/drone_custom.rar
 frontend/public/assets/models/untitled.blend
+frontend/public/assets/models/drone_backup.glb
+frontend/public/assets/models/drone_custom.blend
