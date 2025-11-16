@@ -85,7 +85,8 @@ const Contacts = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {/* Contact Info Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {contacts.map((contact, index) => (
             <div
               key={index}
@@ -112,6 +113,136 @@ const Contacts = () => {
               )}
             </div>
           ))}
+        </div>
+
+        {/* Contact Form */}
+        <div className="max-w-3xl mx-auto">
+          <div className={`p-8 rounded-2xl ${theme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-gray-50 border border-gray-200'}`}>
+            <h3 className={`text-2xl font-bold mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              {t('contactForm')}
+            </h3>
+
+            {success && (
+              <div className="mb-6 p-4 bg-green-500/20 border border-green-500 rounded-lg flex items-center gap-2 text-green-400">
+                <Check size={20} />
+                <span>{t('messageSent')}</span>
+              </div>
+            )}
+
+            {error && (
+              <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {t('fullName')} *
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    required
+                    className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-900 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'} border focus:outline-none focus:ring-2 focus:ring-cyan-500`}
+                    data-testid="contact-fullname-input"
+                  />
+                </div>
+
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {t('email')} *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-900 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'} border focus:outline-none focus:ring-2 focus:ring-cyan-500`}
+                    data-testid="contact-email-input"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {t('phoneNumber')}
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-900 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'} border focus:outline-none focus:ring-2 focus:ring-cyan-500`}
+                    data-testid="contact-phone-input"
+                  />
+                </div>
+
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {t('company')}
+                  </label>
+                  <input
+                    type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-900 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'} border focus:outline-none focus:ring-2 focus:ring-cyan-500`}
+                    data-testid="contact-company-input"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                  {t('subject')} *
+                </label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-900 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'} border focus:outline-none focus:ring-2 focus:ring-cyan-500`}
+                  data-testid="contact-subject-input"
+                />
+              </div>
+
+              <div>
+                <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                  {t('message')} *
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-900 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'} border focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none`}
+                  data-testid="contact-message-input"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className={`w-full py-3 rounded-lg font-semibold text-white ${theme === 'dark' ? 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600' : 'bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600'} disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all flex items-center justify-center gap-2`}
+                data-testid="contact-submit-btn"
+              >
+                {loading ? t('sending') : (
+                  <>
+                    <Send size={20} />
+                    {t('sendMessage')}
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
