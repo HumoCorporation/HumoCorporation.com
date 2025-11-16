@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Zap, Brain, Shield, Heart, Activity, Cloud } from 'lucide-react';
+import { Zap, Brain, Shield, Heart, Activity, Cloud, X } from 'lucide-react';
 
 const DroneModel3D = lazy(() => import('./DroneModel3D'));
 
