@@ -106,6 +106,30 @@ const DroneSection = () => {
           </div>
         </div>
 
+        {/* Photo Gallery */}
+        <div className="mb-16">
+          <h3 className={`text-3xl font-bold mb-8 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            {t('viewGallery')}
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5].map((num) => (
+              <div
+                key={num}
+                className={`relative overflow-hidden rounded-xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} group cursor-pointer transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl`}
+              >
+                <img
+                  src={`/assets/images/drone_photo_${num}.jpg`}
+                  alt={`Q1 Rescue Drone - Photo ${num}`}
+                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-t from-gray-900/80 to-transparent' : 'bg-gradient-to-t from-gray-800/60 to-transparent'} opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6`}>
+                  <p className="text-white font-semibold text-lg">View Full Size</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Videos */}
         <div className="flex flex-col md:flex-row gap-6 justify-center">
           <a
@@ -113,6 +137,7 @@ const DroneSection = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={`px-8 py-4 rounded-lg font-semibold text-center ${theme === 'dark' ? 'bg-cyan-500 hover:bg-cyan-600' : 'bg-blue-500 hover:bg-blue-600'} text-white transform hover:scale-105 transition-all`}
+            data-testid="drone-video-btn"
           >
             {t('watchVideo')}
           </a>
