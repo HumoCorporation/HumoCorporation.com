@@ -1,52 +1,26 @@
-import React, { useRef, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Stage, Environment } from '@react-three/drei';
+import React from 'react';
 import { useApp } from '../context/AppContext';
-
-function Model() {
-  const { scene } = useGLTF('/assets/models/drone_model.glb');
-  const modelRef = useRef();
-
-  useFrame(() => {
-    if (modelRef.current) {
-      modelRef.current.rotation.y += 0.003;
-    }
-  });
-
-  return <primitive ref={modelRef} object={scene} scale={0.8} position={[0, -0.5, 0]} />;
-}
 
 const DroneModel3D = () => {
   const { theme } = useApp();
 
   return (
-    <Canvas
-      camera={{ position: [0, 1, 4], fov: 60 }}
-      style={{ background: theme === 'dark' ? '#1f2937' : '#f3f4f6' }}
-    >
-      <Suspense fallback={null}>
-        <ambientLight intensity={0.5} />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
-        <Stage 
-          environment="city" 
-          intensity={0.5}
-          shadows={false}
-          adjustCamera={false}
-        >
-          <Model />
-        </Stage>
-        <Environment preset="city" />
-        <OrbitControls 
-          enableZoom={true} 
-          enablePan={true}
-          enableRotate={true}
-          autoRotate={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={0}
-        />
-      </Suspense>
-    </Canvas>
+    <div className={`w-full h-full flex items-center justify-center ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}>
+      <div className="text-center p-8">
+        <div className={`text-6xl mb-4 ${theme === 'dark' ? 'text-cyan-400' : 'text-blue-600'}`}>
+          🚁
+        </div>
+        <p className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+          Q1 Rescue Drone - 3D Model
+        </p>
+        <p className={`text-sm mt-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+          Your custom drone model from Blender
+        </p>
+        <p className={`text-xs mt-4 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
+          Advanced autonomous rescue system with AI capabilities
+        </p>
+      </div>
+    </div>
   );
 };
 
