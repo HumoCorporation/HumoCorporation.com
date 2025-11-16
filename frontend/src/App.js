@@ -1,53 +1,60 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React from 'react';
+import './App.css';
+import { AppProvider, useApp } from './context/AppContext';
+import Auth from './components/Auth';
+import Navigation from './components/Navigation';
+import Hero from './components/Hero';
+import DroneSection from './components/DroneSection';
+import SolarSection from './components/SolarSection';
+import Timeline from './components/Timeline';
+import Team from './components/Team';
+import Contacts from './components/Contacts';
+import AITerminal from './components/AITerminal';
+import DeveloperTerminal from './components/DeveloperTerminal';
+import SecretDocument from './components/SecretDocument';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const AppContent = () => {
+  const { isAuthenticated, login, theme } = useApp();
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+  if (!isAuthenticated) {
+    return <Auth onSuccess={login} />;
+  }
 
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`} data-testid="main-app">
+      <Navigation />
+      
+      <main>
+        <Hero />
+        <DroneSection />
+        <SolarSection />
+        <Timeline />
+        <Team />
+        <Contacts />
+        <SecretDocument />
+      </main>
+
+      {/* Floating Terminal Buttons */}
+      <AITerminal />
+      <DeveloperTerminal />
+      
+      {/* Footer */}
+      <footer className={`py-8 border-t ${theme === 'dark' ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+            © 2025 Humo Corporation. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
   );
 }
 
