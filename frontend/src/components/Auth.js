@@ -122,6 +122,13 @@ const Auth = ({ onSuccess }) => {
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20">
           {/* Logo */}
           <div className="text-center mb-8">
+            <div className="flex justify-center mb-4">
+              <img 
+                src="/assets/images/humo-logo.jpg" 
+                alt="Humo Corporation" 
+                className="h-20 w-20 rounded-2xl object-cover shadow-2xl"
+              />
+            </div>
             <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">
               Humo Corporation
             </h1>
