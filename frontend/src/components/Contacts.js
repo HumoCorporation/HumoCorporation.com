@@ -1,9 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Check } from 'lucide-react';
+import axios from 'axios';
 
 const Contacts = () => {
   const { t, theme } = useApp();
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    company: '',
+    subject: '',
+    message: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError('');
+    setSuccess(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    
+    try {
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+      await axios.post(`${BACKEND_URL}/api/contact`, formData);
+      setSuccess(true);
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        company: '',
+        subject: '',
+        message: ''
+      });
+      setTimeout(() => setSuccess(false), 5000);
+    } catch (err) {
+      setError(t('messageError'));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const contacts = [
     {
