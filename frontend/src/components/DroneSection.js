@@ -7,6 +7,7 @@ const DroneModel3D = lazy(() => import('./DroneModel3D'));
 const DroneSection = () => {
   const { t, theme } = useApp();
   const [showModel, setShowModel] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const features = [
     { icon: Zap, text: t('droneFeature1') },
