@@ -30,6 +30,7 @@ const AppContent = () => {
         <Hero />
         <DroneSection />
         <SolarSection />
+        <AboutUs />
         <Timeline />
         <Team />
         <Contacts />
