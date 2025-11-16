@@ -106,7 +106,64 @@ export const translations = {
     
     // Theme
     darkMode: 'Dark Mode',
-    lightMode: 'Light Mode'
+    lightMode: 'Light Mode',
+    
+    // About Us
+    aboutUs: 'About Us',
+    aboutSubtitle: 'Pioneering Innovation in Rescue and Energy Technologies',
+    aboutDescription1: 'Humo Corporation was founded in 2020 with a singular vision: to revolutionize emergency response and sustainable energy through cutting-edge artificial intelligence and autonomous systems. Our journey began with a commitment to saving lives and protecting our planet.',
+    aboutDescription2: 'Today, we stand at the forefront of technological innovation, combining advanced robotics, AI systems, and renewable energy solutions to create products that make a real difference in the world. Our Q1 Rescue Drone and Smart Solar Station S1 represent years of research, development, and dedication to excellence.',
+    ourMission: 'Our Mission',
+    missionDescription: 'To develop breakthrough technologies that save lives in emergency situations and promote sustainable energy solutions for a better tomorrow.',
+    ourVision: 'Our Vision',
+    visionDescription: 'To become the global leader in AI-powered rescue systems and autonomous energy solutions, making the world safer and more sustainable.',
+    coreValues: 'Core Values',
+    valueInnovation: 'Innovation',
+    valueInnovationDesc: 'Pushing boundaries and challenging the status quo',
+    valueSafety: 'Safety First',
+    valueSafetyDesc: 'Prioritizing human life in every decision we make',
+    valueCollaboration: 'Collaboration',
+    valueCollaborationDesc: 'Working together to achieve extraordinary results',
+    valueExcellence: 'Excellence',
+    valueExcellenceDesc: 'Commitment to highest quality in everything we do',
+    achievements: 'Our Achievements',
+    founded: 'Founded',
+    patents: 'Patents Filed',
+    countries: 'Countries Served',
+    deployments: 'Successful Deployments',
+    getInTouch: 'Get In Touch',
+    
+    // Contact Form
+    contactForm: 'Send us a Message',
+    fullName: 'Full Name',
+    phoneNumber: 'Phone Number',
+    company: 'Company',
+    subject: 'Subject',
+    message: 'Message',
+    sendMessage: 'Send Message',
+    sending: 'Sending...',
+    messageSent: 'Message sent successfully!',
+    messageError: 'Failed to send message. Please try again.',
+    
+    // Footer
+    quickLinks: 'Quick Links',
+    followUs: 'Follow Us',
+    newsletter: 'Newsletter',
+    newsletterDesc: 'Subscribe to get latest updates',
+    emailAddress: 'Email Address',
+    subscribe: 'Subscribe',
+    subscribed: 'Subscribed successfully!',
+    privacyPolicy: 'Privacy Policy',
+    termsOfService: 'Terms of Service',
+    allRightsReserved: 'All rights reserved',
+    
+    // CTAs
+    requestDemo: 'Request Demo',
+    getQuote: 'Get Quote',
+    learnMore: 'Learn More',
+    downloadBrochure: 'Download Brochure',
+    contactSales: 'Contact Sales',
+    bookConsultation: 'Book Consultation'
   },
   ru: {
     // Auth
