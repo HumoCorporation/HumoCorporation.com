@@ -347,6 +347,33 @@ async def verify_secret_code(request: SecretCodeRequest):
     else:
         return {"access": False, "message": "Access denied"}
 
+# ============= CONTACT FORM ROUTES =============
+
+@api_router.post("/contact")
+async def submit_contact_form(request: ContactFormRequest):
+    # Store contact form submission in database
+    contact_doc = {
+        "id": str(uuid.uuid4()),
+        "full_name": request.fullName,
+        "email": request.email,
+        "phone": request.phone,
+        "company": request.company,
+        "subject": request.subject,
+        "message": request.message,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "status": "new"
+    }
+    
+    await db.contact_submissions.insert_one(contact_doc)
+    
+    # In production, you would also send an email notification here
+    logger.info(f"New contact form submission from {request.email}")
+    
+    return {
+        "message": "Contact form submitted successfully",
+        "submission_id": contact_doc["id"]
+    }
+
 # ============= ADMIN ROUTES =============
 
 @api_router.get("/admin/users")
