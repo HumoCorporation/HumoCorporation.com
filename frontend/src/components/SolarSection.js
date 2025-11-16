@@ -77,6 +77,58 @@ const SolarSection = () => {
           </div>
         </div>
 
+        {/* Photo Gallery */}
+        <div className="mb-16">
+          <h3 className={`text-3xl font-bold mb-8 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            {t('viewGallery')}
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5].map((num) => (
+              <div
+                key={num}
+                onClick={() => setSelectedImage(num)}
+                className={`relative overflow-hidden rounded-xl ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} group cursor-pointer transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl`}
+                data-testid={`solar-photo-${num}`}
+              >
+                <img
+                  src={`/assets/images/solar_photo_${num}.jpg`}
+                  alt={`Smart Solar Station S1 - Photo ${num}`}
+                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-t from-orange-900/80 to-transparent' : 'bg-gradient-to-t from-orange-800/60 to-transparent'} opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6`}>
+                  <p className="text-white font-semibold text-lg">View Full Size</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Lightbox Modal */}
+        {selectedImage && (
+          <div 
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+            onClick={() => setSelectedImage(null)}
+            data-testid="solar-image-lightbox"
+          >
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+              data-testid="close-solar-lightbox-btn"
+            >
+              <X className="text-white" size={32} />
+            </button>
+            <img
+              src={`/assets/images/solar_photo_${selectedImage}.jpg`}
+              alt={`Smart Solar Station S1 - Photo ${selectedImage}`}
+              className="max-w-full max-h-full object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-lg font-semibold">
+              Photo {selectedImage} of 5
+            </div>
+          </div>
+        )}
+
         {/* Videos */}
         <div className="flex flex-col md:flex-row gap-6 justify-center">
           <a
@@ -84,6 +136,7 @@ const SolarSection = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={`px-8 py-4 rounded-lg font-semibold text-center ${theme === 'dark' ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-orange-500 hover:bg-orange-600'} text-white transform hover:scale-105 transition-all`}
+            data-testid="solar-video-btn"
           >
             {t('watchVideo')}
           </a>
