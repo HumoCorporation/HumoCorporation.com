@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Sun, Zap, Cloud, Wifi, Settings, Eye } from 'lucide-react';
+import { Sun, Zap, Cloud, Wifi, Settings, Eye, X } from 'lucide-react';
 
 const SolarSection = () => {
   const { t, theme } = useApp();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const features = [
     { icon: Sun, text: t('solarFeature1') },
