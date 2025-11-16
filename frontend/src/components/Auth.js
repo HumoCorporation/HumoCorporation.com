@@ -65,6 +65,13 @@ const Auth = ({ onSuccess }) => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
         <div className="text-center animate-fade-in">
+          <div className="mb-8 flex justify-center">
+            <img 
+              src="/assets/images/humo-logo.jpg" 
+              alt="Humo Corporation" 
+              className="h-32 w-32 rounded-3xl object-cover shadow-2xl animate-pulse"
+            />
+          </div>
           <div className="mb-8">
             <div className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 animate-pulse">
               Humo Corporation
