@@ -94,6 +94,14 @@ class TerminalCommandRequest(BaseModel):
 class SecretCodeRequest(BaseModel):
     code: str
 
+class ContactFormRequest(BaseModel):
+    fullName: str
+    email: EmailStr
+    phone: Optional[str] = None
+    company: Optional[str] = None
+    subject: str
+    message: str
+
 # ============= UTILITIES =============
 
 def hash_password(password: str) -> str:
