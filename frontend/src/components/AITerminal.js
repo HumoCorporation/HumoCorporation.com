@@ -47,10 +47,25 @@ const AITerminal = () => {
         content: response.data.response
       }]);
     } catch (error) {
+      let errorMessage = 'Error: Unable to process request. ';
+      
+      if (error.response?.status === 403) {
+        errorMessage = 'Error: Invalid developer password. Please check your credentials.';
+      } else if (error.response?.status === 401) {
+        errorMessage = 'Error: Authentication failed. Please log in again.';
+      } else if (error.response?.status === 429) {
+        errorMessage = 'Error: Rate limit exceeded. Please wait a moment and try again.';
+      } else if (error.response?.data?.detail) {
+        errorMessage = `Error: ${error.response.data.detail}`;
+      } else if (error.message) {
+        errorMessage = `Error: ${error.message}`;
+      }
+      
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: 'Error: Unable to process request. Please try again.'
+        content: errorMessage
       }]);
+      console.error('AI Terminal Error:', error);
     } finally {
       setLoading(false);
     }
