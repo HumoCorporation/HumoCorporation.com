@@ -42,105 +42,99 @@ const DroneModel3DInteractive = () => {
   };
 
   return (
-    <div className={`relative w-full h-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'} rounded-xl overflow-hidden`}>
+    <div className={`relative w-full h-full ${theme === 'dark' ? 'bg-gradient-to-br from-gray-900 to-gray-800' : 'bg-gradient-to-br from-gray-100 to-gray-50'} rounded-xl overflow-hidden`}>
       {/* Controls */}
       <div className="absolute top-4 left-4 right-4 z-10 flex items-center justify-between">
-        <div className={`flex gap-2 ${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white/90'} backdrop-blur-sm rounded-lg p-2`}>
+        <div className={`flex gap-2 ${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white/90'} backdrop-blur-sm rounded-lg p-2 shadow-lg`}>
           <button
-            onClick={() => setModelType('open')}
+            onClick={() => setCurrentImageIndex(0)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-              modelType === 'open'
-                ? theme === 'dark'
-                  ? 'bg-cyan-600 text-white'
-                  : 'bg-blue-600 text-white'
-                : theme === 'dark'
-                ? 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              theme === 'dark'
+                ? 'bg-cyan-600 text-white hover:bg-cyan-700'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
             }`}
-            data-testid="drone-model-open-btn"
+            data-testid="drone-view-front-btn"
           >
-            Open Version
+            Front View
           </button>
           <button
-            onClick={() => setModelType('closed')}
+            onClick={() => setCurrentImageIndex(2)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-              modelType === 'closed'
+              theme === 'dark'
+                ? 'bg-cyan-600 text-white hover:bg-cyan-700'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
+            }`}
+            data-testid="drone-view-top-btn"
+          >
+            Top View
+          </button>
+          <button
+            onClick={() => setIsRotating(!isRotating)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
+              isRotating
                 ? theme === 'dark'
-                  ? 'bg-cyan-600 text-white'
-                  : 'bg-blue-600 text-white'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-green-500 text-white'
                 : theme === 'dark'
                 ? 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
-            data-testid="drone-model-closed-btn"
+            data-testid="drone-auto-rotate-btn"
           >
-            Closed Version
+            <RotateCw size={16} className={isRotating ? 'animate-spin' : ''} />
+            {isRotating ? 'Stop' : 'Auto Rotate'}
           </button>
         </div>
 
-        <div className={`${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white/90'} backdrop-blur-sm rounded-lg p-2`}>
+        <div className={`${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white/90'} backdrop-blur-sm rounded-lg p-2 shadow-lg`}>
           <div className={`text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-            Drag to rotate • Scroll to zoom
+            Drag to rotate • Click views to jump
           </div>
         </div>
       </div>
 
-      {/* 3D Model Viewer */}
-      {!isLoading && typeof window !== 'undefined' && window.customElements && window.customElements.get('model-viewer') ? (
-        <model-viewer
-          src={modelPath}
-          alt="Humo Q1 Rescue Drone 3D Model"
-          auto-rotate
-          auto-rotate-delay="1000"
-          rotation-per-second="30deg"
-          camera-controls
-          touch-action="pan-y"
-          disable-zoom={false}
-          style={{
-            width: '100%',
-            height: '100%',
-            background: theme === 'dark' ? '#1f2937' : '#f3f4f6'
-          }}
-          camera-orbit="45deg 75deg 2.5m"
-          min-camera-orbit="auto auto 1m"
-          max-camera-orbit="auto auto 10m"
-          field-of-view="45deg"
-          shadow-intensity="1"
-          exposure="1"
-          environment-image="neutral"
-        >
-          {/* Loading spinner */}
-          <div slot="poster" className="flex items-center justify-center w-full h-full">
-            <div className="text-center">
-              <div className={`animate-spin rounded-full h-16 w-16 border-4 ${theme === 'dark' ? 'border-cyan-500' : 'border-blue-500'} border-t-transparent mx-auto mb-4`} />
-              <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-                Loading 3D Model...
-              </p>
-            </div>
-          </div>
+      {/* Interactive Image Viewer */}
+      <div 
+        className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+        onMouseMove={handleDrag}
+        onMouseDown={(e) => e.preventDefault()}
+      >
+        <img
+          src={droneImages[currentImageIndex]}
+          alt={`Q1 Rescue Drone - View ${currentImageIndex + 1}`}
+          className="max-w-full max-h-full object-contain select-none transition-opacity duration-300"
+          draggable="false"
+          style={{ userSelect: 'none' }}
+        />
+      </div>
 
-          {/* Progress bar */}
-          <div slot="progress-bar" className="absolute bottom-4 left-4 right-4">
-            <div className={`h-2 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'} rounded-full overflow-hidden`}>
-              <div className={`h-full ${theme === 'dark' ? 'bg-cyan-500' : 'bg-blue-500'} transition-all duration-300`} />
-            </div>
-          </div>
-        </model-viewer>
-      ) : (
-        <div className="flex items-center justify-center w-full h-full">
-          <div className="text-center p-8">
-            <div className={`animate-spin rounded-full h-16 w-16 border-4 ${theme === 'dark' ? 'border-cyan-500' : 'border-blue-500'} border-t-transparent mx-auto mb-4`} />
-            <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-              Initializing 3D Viewer...
-            </p>
-          </div>
+      {/* View Indicator */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+        <div className={`flex gap-2 ${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white/90'} backdrop-blur-sm rounded-full px-4 py-2 shadow-lg`}>
+          {droneImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === currentImageIndex
+                  ? theme === 'dark'
+                    ? 'bg-cyan-500 w-6'
+                    : 'bg-blue-600 w-6'
+                  : theme === 'dark'
+                  ? 'bg-gray-600'
+                  : 'bg-gray-300'
+              }`}
+              data-testid={`drone-view-indicator-${index}`}
+            />
+          ))}
         </div>
-      )}
+      </div>
 
       {/* Info Badge */}
       <div className="absolute bottom-4 left-4 z-10">
-        <div className={`px-4 py-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800/90 text-gray-300' : 'bg-white/90 text-gray-700'} backdrop-blur-sm text-sm font-medium`}>
-          {modelType === 'open' ? '🚁 Open Configuration' : '📦 Closed Configuration'}
+        <div className={`px-4 py-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800/90 text-gray-300' : 'bg-white/90 text-gray-700'} backdrop-blur-sm text-sm font-medium shadow-lg flex items-center gap-2`}>
+          <ImageIcon size={16} />
+          View {currentImageIndex + 1} of {droneImages.length}
         </div>
       </div>
     </div>
