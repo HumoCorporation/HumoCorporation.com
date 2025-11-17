@@ -88,3 +88,11 @@ frontend/public/assets/models/drone_backup.glb
 frontend/public/assets/models/drone_custom.blend
 frontend/public/assets/models/drone_closed.fbx
 frontend/public/assets/models/drone_open.fbx
+-e 
+# Environment files
+*.env
+*.env.*
+frontend/build/assets/models/drone_backup.glb
+frontend/build/assets/models/drone_custom.blend
+frontend/build/assets/models/drone_custom.rar
+frontend/build/assets/models/drone_closed.fbx
