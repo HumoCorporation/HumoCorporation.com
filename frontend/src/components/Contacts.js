@@ -51,20 +51,20 @@ const Contacts = () => {
   const contacts = [
     {
       icon: Mail,
-      label: 'Email',
-      value: 'info@humocorp.com',
-      link: 'mailto:info@humocorp.com',
+      label: t('email'),
+      value: 'Humocorp0223@gmail.com',
+      link: 'mailto:Humocorp0223@gmail.com',
     },
     {
       icon: Phone,
-      label: 'Phone',
-      value: '+998 (90) 123-45-67',
-      link: 'tel:+998901234567',
+      label: t('phoneNumber'),
+      value: '+7 (**) ***-**-**',
+      link: null,
     },
     {
       icon: MapPin,
-      label: 'Location',
-      value: 'Tashkent, Uzbekistan',
+      label: t('location'),
+      value: t('locationValue'),
       link: null,
     },
   ];
