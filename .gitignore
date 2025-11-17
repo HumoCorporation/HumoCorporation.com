@@ -112,3 +112,7 @@ frontend/build/assets/models/drone_closed.fbx
 # Environment files
 *.env
 *.env.*
+-e 
+# Environment files
+*.env
+*.env.*
