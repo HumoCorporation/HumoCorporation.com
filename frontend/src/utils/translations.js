@@ -163,7 +163,9 @@ export const translations = {
     learnMore: 'Learn More',
     downloadBrochure: 'Download Brochure',
     contactSales: 'Contact Sales',
-    bookConsultation: 'Book Consultation'
+    bookConsultation: 'Book Consultation',
+    location: 'Location',
+    locationValue: 'Tashkent, Uzbekistan'
   },
   ru: {
     // Auth
