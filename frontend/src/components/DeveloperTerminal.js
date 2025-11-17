@@ -38,16 +38,19 @@ const DeveloperTerminal = () => {
 
       if (!response.data.error) {
         setIsAuthenticated(true);
+        setAuthenticatedPassword(password);
         setOutput([
           { type: 'success', text: 'Access granted. Welcome to Humo Terminal.' },
           { type: 'info', text: 'Type "help" for available commands.' },
         ]);
+        setPassword('');
       } else {
         setOutput(prev => [...prev, { type: 'error', text: 'Access denied. Invalid password.' }]);
+        setPassword('');
       }
-      setPassword('');
     } catch (error) {
-      setOutput(prev => [...prev, { type: 'error', text: 'Authentication failed.' }]);
+      setOutput(prev => [...prev, { type: 'error', text: 'Authentication failed. ' + (error.response?.data?.detail || error.message || 'Please try again.') }]);
+      setPassword('');
     }
   };
 
