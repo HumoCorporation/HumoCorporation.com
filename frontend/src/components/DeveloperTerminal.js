@@ -8,6 +8,7 @@ const DeveloperTerminal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
+  const [authenticatedPassword, setAuthenticatedPassword] = useState('');
   const [output, setOutput] = useState([
     { type: 'system', text: 'Humo Corporation Terminal v1.0.0' },
     { type: 'system', text: 'Enter password to access terminal...' },
