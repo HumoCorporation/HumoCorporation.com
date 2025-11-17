@@ -325,7 +325,9 @@ export const translations = {
     learnMore: 'Узнать больше',
     downloadBrochure: 'Скачать брошюру',
     contactSales: 'Связаться с отделом продаж',
-    bookConsultation: 'Записаться на консультацию'
+    bookConsultation: 'Записаться на консультацию',
+    location: 'Местоположение',
+    locationValue: 'Ташкент, Узбекистан'
   },
   cn: {
     // Auth
