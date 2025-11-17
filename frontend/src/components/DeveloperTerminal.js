@@ -67,18 +67,34 @@ const DeveloperTerminal = () => {
     try {
       const response = await terminalAPI.execute({
         command: command,
-        password: password || undefined,
+        password: authenticatedPassword,
       });
 
-      const lines = response.data.output.split('\n').filter(line => line.trim());
-      lines.forEach(line => {
-        setOutput(prev => [...prev, {
-          type: response.data.error ? 'error' : 'output',
-          text: line
-        }]);
-      });
+      if (response.data.output) {
+        const lines = response.data.output.split('\n').filter(line => line.trim());
+        if (lines.length === 0) {
+          setOutput(prev => [...prev, { type: 'output', text: ' ' }]);
+        } else {
+          lines.forEach(line => {
+            setOutput(prev => [...prev, {
+              type: response.data.error ? 'error' : 'output',
+              text: line
+            }]);
+          });
+        }
+      } else {
+        setOutput(prev => [...prev, { type: 'error', text: 'No response from server.' }]);
+      }
     } catch (error) {
-      setOutput(prev => [...prev, { type: 'error', text: 'Command execution failed.' }]);
+      let errorMessage = 'Command execution failed. ';
+      if (error.response?.status === 403 || error.response?.status === 401) {
+        errorMessage = 'Permission denied. Invalid credentials.';
+      } else if (error.response?.data?.detail) {
+        errorMessage = error.response.data.detail;
+      } else if (error.message) {
+        errorMessage += error.message;
+      }
+      setOutput(prev => [...prev, { type: 'error', text: errorMessage }]);
     } finally {
       setLoading(false);
     }
