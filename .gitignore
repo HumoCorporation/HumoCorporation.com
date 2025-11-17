@@ -96,3 +96,7 @@ frontend/build/assets/models/drone_backup.glb
 frontend/build/assets/models/drone_custom.blend
 frontend/build/assets/models/drone_custom.rar
 frontend/build/assets/models/drone_closed.fbx
+-e 
+# Environment files
+*.env
+*.env.*
