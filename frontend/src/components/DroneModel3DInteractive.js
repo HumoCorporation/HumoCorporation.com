@@ -1,31 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { Maximize2, RotateCw, ZoomIn, ZoomOut } from 'lucide-react';
+import { RotateCw, Image as ImageIcon, Maximize2 } from 'lucide-react';
 
 const DroneModel3DInteractive = () => {
   const { theme } = useApp();
   const [modelType, setModelType] = useState('open');
-  const [isLoading, setIsLoading] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isRotating, setIsRotating] = useState(false);
+
+  // Use drone photos for 360° view
+  const droneImages = [
+    '/assets/images/drone_photo_1.jpg',
+    '/assets/images/drone_photo_2.jpg',
+    '/assets/images/drone_photo_3.jpg',
+    '/assets/images/drone_photo_4.jpg',
+    '/assets/images/drone_photo_5.jpg',
+  ];
 
   useEffect(() => {
-    // Load Model Viewer script
-    const script = document.createElement('script');
-    script.type = 'module';
-    script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js';
-    document.head.appendChild(script);
+    let interval;
+    if (isRotating) {
+      interval = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % droneImages.length);
+      }, 1000); // Change image every second
+    }
+    return () => clearInterval(interval);
+  }, [isRotating, droneImages.length]);
 
-    script.onload = () => {
-      setIsLoading(false);
-    };
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
-
-  const modelPath = modelType === 'open' 
-    ? '/assets/models/drone_open.fbx'
-    : '/assets/models/drone_closed.fbx';
+  const handleDrag = (e) => {
+    if (e.buttons === 1) {
+      const movement = e.movementX;
+      if (Math.abs(movement) > 5) {
+        setCurrentImageIndex((prev) => {
+          const newIndex = movement > 0 
+            ? (prev + 1) % droneImages.length 
+            : (prev - 1 + droneImages.length) % droneImages.length;
+          return newIndex;
+        });
+      }
+    }
+  };
 
   return (
     <div className={`relative w-full h-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'} rounded-xl overflow-hidden`}>
