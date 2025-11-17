@@ -41,27 +41,33 @@ const DroneSection = () => {
           </p>
         </div>
 
-        {/* 3D Model */}
-        <div className={`relative h-96 mb-16 rounded-2xl overflow-hidden ${theme === 'dark' ? 'bg-gray-800/50' : 'bg-gray-100'} border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+        {/* Interactive 3D Model */}
+        <div className={`relative h-[600px] mb-16 rounded-2xl overflow-hidden ${theme === 'dark' ? 'bg-gray-800/50' : 'bg-gray-100'} border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} shadow-2xl`}>
           {showModel ? (
-            <Suspense fallback={
-              <div className="flex items-center justify-center h-full">
-                <div className="text-center">
-                  <div className={`animate-spin rounded-full h-12 w-12 border-4 ${theme === 'dark' ? 'border-cyan-500' : 'border-blue-500'} border-t-transparent mx-auto mb-4`} />
-                  <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Loading 3D Model...</p>
-                </div>
-              </div>
-            }>
-              <DroneModel3D />
-            </Suspense>
+            <DroneModel3DInteractive />
           ) : (
             <div className="flex items-center justify-center h-full">
-              <button
-                onClick={() => setShowModel(true)}
-                className={`px-8 py-4 rounded-lg font-semibold text-white ${theme === 'dark' ? 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:shadow-lg hover:shadow-cyan-500/50' : 'bg-gradient-to-r from-blue-500 to-cyan-500'} transform hover:scale-105 transition-all`}
-              >
-                Load 3D Model
-              </button>
+              <div className="text-center">
+                <div className="mb-6">
+                  <div className="text-8xl mb-4">🚁</div>
+                  <h3 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                    Interactive 3D Model
+                  </h3>
+                  <p className={`text-lg mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                    View your custom Q1 Rescue Drone in 3D
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowModel(true)}
+                  className={`px-8 py-4 rounded-lg font-semibold text-white ${theme === 'dark' ? 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:shadow-lg hover:shadow-cyan-500/50' : 'bg-gradient-to-r from-blue-500 to-cyan-500'} transform hover:scale-105 transition-all`}
+                  data-testid="load-3d-model-btn"
+                >
+                  Load Interactive 3D Model
+                </button>
+                <p className={`text-xs mt-4 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
+                  • Drag to rotate • Scroll to zoom • Switch between open/closed
+                </p>
+              </div>
             </div>
           )}
         </div>
